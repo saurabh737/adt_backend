@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../utils/db').services;
-const check = require('../controllers/usercheck').check
 
 router.post('/addfavourite', async (req, res) => {
     try {

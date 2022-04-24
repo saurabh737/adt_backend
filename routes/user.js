@@ -1,8 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../utils/db').services;
 const check = require('../controllers/usercheck').check
-const services = require('../utils/db').services
+const db = require('../utils/db').services
 
 router.post('/signup', async (req, res) => {
     try {
@@ -19,7 +18,7 @@ router.post('/signup', async (req, res) => {
             })
         }
 
-        const data = await services.setUserData(req.body)
+        const data = await db.setUserData(req.body)
         let userData = await check(req.body.email);
         userData = userData[0]
         return res.status(200).send({
