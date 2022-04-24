@@ -20,8 +20,13 @@ router.post('/signup', async (req, res) => {
         }
 
         const data = await services.setUserData(req.body)
+        let userData = await check(req.body.email);
+        userData = userData[0]
         return res.status(200).send({
-            "message": "User Added."
+            "message": "User Added.",
+            "email": req.body.email,
+            "name": req.body.name,
+            "user_id": userData.id
         })
     } catch (e) {
         console.log(e);
@@ -40,7 +45,6 @@ router.post('/login', async (req, res) => {
             })
         }
         let userData = await check(req.body.email);
-        console.log(userData)
         if (userData.length == 0) {
             return res.status(403).send({
                 "message": "User don't exist"
@@ -52,6 +56,7 @@ router.post('/login', async (req, res) => {
                 "message": "Email/Password mismatch"
             })
         }
+        userData.user_id = userData.id
         return res.status(200).send(userData)
     } catch (e) {
         console.log(e);

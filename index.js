@@ -13,6 +13,7 @@ app.use(express.urlencoded({
 
 const userRoute = require('./routes/user')
 const recipeRoute = require('./routes/recipes')
+const actvityRoute = require('./routes/activity')
 
 app.use(bodyParser.json())
 app.use(cors({
@@ -23,6 +24,7 @@ app.use(cors({
 
 app.use('/user', userRoute);
 app.use('/recipes', recipeRoute);
+app.use('/activity', actvityRoute);
 
 app.get('*', function (req, res) {
   res.sendFile('index.html', {

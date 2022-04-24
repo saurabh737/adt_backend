@@ -68,6 +68,81 @@ module.exports.services = {
         }
       });
     })
+  },
+
+  addFavourite(data){
+    return new Promise((resolve, reject) => {
+      executeWrite(QUERIES.ADD_FAVOURITE, [data.user_id, data.recipe_id], (error, response) => {
+        if (error) {
+          if (error.code == "ER_NO_SUCH_TABLE") {
+            return resolve([]);
+          }
+          reject(error);
+        } else {
+          resolve(response[0]);
+        }
+      });
+    })
+  },
+
+  deleteFavourite(data){
+    return new Promise((resolve, reject) => {
+      executeWrite(QUERIES.DELETE_FAVOURITE, [data.user_id, data.recipe_id], (error, response) => {
+        if (error) {
+          if (error.code == "ER_NO_SUCH_TABLE") {
+            return resolve([]);
+          }
+          reject(error);
+        } else {
+          resolve(response[0]);
+        }
+      });
+    })
+  },
+
+  getFavourite(user_id){
+    return new Promise((resolve, reject) => {
+      executeWrite(QUERIES.GET_FAVOURITE, [user_id], (error, response) => {
+        if (error) {
+          if (error.code == "ER_NO_SUCH_TABLE") {
+            return resolve([]);
+          }
+          reject(error);
+        } else {
+          resolve(response);
+        }
+      });
+    })
+  },
+
+  checkFavourite(data){
+    return new Promise((resolve, reject) => {
+      executeWrite(QUERIES.CHECK_FAVOURITE, [data.user_id, data.recipe_id], (error, response) => {
+        if (error) {
+          if (error.code == "ER_NO_SUCH_TABLE") {
+            return resolve([]);
+          }
+          reject(error);
+        } else {
+          resolve(response);
+        }
+      });
+    })
+  },
+
+  getFavouriteIds(user_id){
+    return new Promise((resolve, reject) => {
+      executeWrite(QUERIES.GET_FAVOURITE_IDS, [user_id], (error, response) => {
+        if (error) {
+          if (error.code == "ER_NO_SUCH_TABLE") {
+            return resolve([]);
+          }
+          reject(error);
+        } else {
+          resolve(response);
+        }
+      });
+    })
   }
 
 }
