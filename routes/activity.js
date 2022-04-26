@@ -72,13 +72,16 @@ router.post('/getfavourite', async (req, res) => {
         for (let i = 0; i < data.length; i++) {
             data[i].ingredientsName = data[i].ingredientsName.split(',')
             data[i].steps = data[i].steps.replaceAll("'", '').replace(/\[|\]/g, '').split(',')
+            var hours = Math.floor(data[i].cooktime / 60);
+            var minutes = data[i].cooktime % 60;
+            data[i].time = `${hours} hr ${minutes} min`
         }
         if (data.length == 0) {
             return res.status(204).send({})
         }
-        return res.status(200).send({
+        return res.status(200).send(
             data
-        })
+        )
     } catch (e) {
         console.log(e);
         return res.status(503).send({
