@@ -146,7 +146,7 @@ module.exports.services = {
 
   filter_without_ingredirents(steps_cnt, cooktime, page_no){
     return new Promise((resolve, reject) => {
-      executeWrite(QUERIES.FILTER_WITHOUT_INGREDIENTS, [steps_cnt, cooktime, page_no], (error, response) => {
+      executeWrite(QUERIES.FILTER_WITHOUT_INGREDIENTS, [cooktime, steps_cnt, page_no], (error, response) => {
         if (error) {
           if (error.code == "ER_NO_SUCH_TABLE") {
             return resolve([]);
@@ -161,7 +161,7 @@ module.exports.services = {
 
   filter_with_ingredirents(steps_cnt, cooktime, ingredients, page_no){
     return new Promise((resolve, reject) => {
-      executeWrite(QUERIES.FILTER_WITH_INGREDIENTS, [steps_cnt, cooktime, ingredients, page_no], (error, response) => {
+      executeWrite(QUERIES.FILTER_WITH_INGREDIENTS, [cooktime, steps_cnt, ingredients, page_no], (error, response) => {
         if (error) {
           if (error.code == "ER_NO_SUCH_TABLE") {
             return resolve([]);
