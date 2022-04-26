@@ -28,6 +28,7 @@ router.get('/metadata', async (req, res) => {
         var hours = Math.floor(data.cooktime / 60);
         var minutes = data.cooktime % 60;
         data.time = `${hours} hr ${minutes} min`
+        data.avg_rating = parseFloat(data.avg_rating.toFixed(2));
         return res.status(200).send(data)
     } catch (error) {
         console.log(error)

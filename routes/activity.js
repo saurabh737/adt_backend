@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../utils/db').services;
+const helper = require('../helper/formatResponse')
 
 router.post('/addfavourite', async (req, res) => {
     try {
@@ -68,19 +69,12 @@ router.post('/getfavourite', async (req, res) => {
 
         let data = await db.getFavourite(req.body.user_id);
         data = JSON.parse(JSON.stringify(data))
-
-        for (let i = 0; i < data.length; i++) {
-            data[i].ingredientsName = data[i].ingredientsName.split(',')
-            data[i].steps = data[i].steps.replaceAll("'", '').replace(/\[|\]/g, '').split(',')
-            var hours = Math.floor(data[i].cooktime / 60);
-            var minutes = data[i].cooktime % 60;
-            data[i].time = `${hours} hr ${minutes} min`
-        }
+        let formattedData = await helper.format(req.query.user_id, data, true)
         if (data.length == 0) {
             return res.status(204).send({})
         }
         return res.status(200).send(
-            data
+            formattedData
         )
     } catch (e) {
         console.log(e);
